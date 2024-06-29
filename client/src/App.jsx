@@ -5,7 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import ReactMarkdown from 'react-markdown'; // Import react-markdown
 
 const makeAPIRequest = async (prompt) => {
-  const res = await axios.post("http://localhost:5000/generate", { prompt });
+  const res = await axios.post("https://gemini-text-generator.vercel.app/generate", { prompt });
   console.log(res.data);
   return res.data;
 };
