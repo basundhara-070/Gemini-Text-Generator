@@ -10,10 +10,22 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google/genai": "^1.15.0",
     "@google/generative-ai": "^0.14.0",
+    "axios": "^1.11.0",
+    "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "nodemon": "^3.1.4"
+    "mongodb": "^6.18.0",
+    "mongoose": "^8.4.4",
+    "nodemon": "^3.1.10",
+    "pdfkit": "^0.17.1",
+    "puppeteer": "^24.17.0",
+    "xml2js": "^0.6.2",
+    "youtube-captions-scraper": "^2.0.3",
+    "youtube-search-api": "^2.0.1",
+    "youtube-transcript": "^1.2.1",
+    "yt-transcript": "^0.0.2"
   }
 }

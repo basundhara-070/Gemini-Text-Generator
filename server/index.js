@@ -1,34 +1,33 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const { GoogleGenerativeAI } = require("@google/generative-ai");
+const connectDB = require("./connectDB");
+
+const aiRoutes = require("./routes/aiRoutes");
+const notesRoutes = require("./routes/notesRoutes");
+const youtubeSearchRoutes = require("./routes/youtubeSearchRoutes");
+const transcriptGeneratorRoutes = require("./routes/transcriptGeneratorRoutes");
+const summariseRoutes = require("./routes/summariseRoutes");
+const createNotesRoutes = require("./routes/createNotesRoutes");
 
 const app = express();
+connectDB();
 
 const corsOptions = {
-    origin : ["http://localhost:5173", "https://gemini-text-generator-frontend.vercel.app"],
+    origin: ["http://localhost:5173", "https://gemini-text-generator-frontend.vercel.app"],
 };
 
 app.use(cors(corsOptions));
-app.use(express.json());
+app.use(express.json({ limit: "10mb" }));  
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+// Routes
+app.use("/api/ai", aiRoutes);
+app.use("/api/notes", notesRoutes);
+app.use("/api/search", youtubeSearchRoutes);
+app.use("/api/transcript", transcriptGeneratorRoutes);
+app.use("/api/summarise", summariseRoutes);
+app.use("/api/createNotes", createNotesRoutes);
 
-app.post('/generate', async(req,res)=>{
-    const {prompt} = req.body;
-    try{
-        const model = genAI.getGenerativeModel({model:"gemini-pro"})
+app.get("/", (req, res) => res.send("Hello"));
 
-        const result = await model.generateContent(prompt);
-        const response = await result.response;
-        const text =  response.text();
-        res.send(text);
-    } catch(error){
-        console.log(error);
-        req.status(500).send("Failed to generate content");
-    }
-});
-
-app.listen(process.env.PORT, console.log("Server is Running"));
-
-
+app.listen(process.env.PORT, () => console.log("Server is running"));
